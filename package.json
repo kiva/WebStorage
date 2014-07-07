@@ -1,11 +1,11 @@
 {
-  "name": "webstorage",
-  "version": "0.0.0",
-  "repository": "htt://github.com/kiva/webstorage",
+  "name": "WebStorage",
+  "version": "0.1.0",
+  "repository": "htt://github.com/kiva/webStorage",
   "licenses": [
     {
 	  "type" : "MIT",
-	  "url" : "htt://github.com/kiva/webstorage/license.txt"
+	  "url" : "htt://github.com/kiva/webStorage/license.txt"
     }
   ],
   "scripts": {
