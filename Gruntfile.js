@@ -23,8 +23,10 @@ module.exports = function(grunt) {
 
 
 		, buster: {
-			test: {
-				reporter: 'specification'
+			dev: {
+				test: {
+					reporter: 'specification'
+				}
 			}
 		}
 
