@@ -30,14 +30,27 @@ function WebStorage(store){
 
 
 WebStorage.prototype = {
-	set: function(key, value){
+
+	/**
+	 * Sets a value to storage
+	 *
+	 * @param {String} key
+	 * @param {*} value
+	 */
+	set: function (key, value) {
 		var str_value = JSON.stringify(value);
 		str_value = btoa(str_value); 
 		this.store.setItem(key,str_value);
-
 	}
 
-	,get: function(key){
+
+	/**
+	 * Gets a value from storage
+	 *
+	 * @param {String}
+	 * @returns {*}
+	 */
+	, get: function (key) {
 		var raw_value = this.store.getItem(key);
 		if(raw_value === null){
 			return null;
@@ -47,21 +60,35 @@ WebStorage.prototype = {
 	}
 
 
-	,rm: function(key){
+	/**
+	 * Removes a key from storage
+	 *
+	 * @param {String} key
+	 */
+	, rm: function (key) {
 		this.store.removeItem(key);
 	}
 
 
-	,flush: function(){
+	/**
+	 * Empties out the store
+	 */
+	, flush: function () {
 		this.store.clear();
 	}
 
 
-	,getAll: function(){
+	/**
+	 * Returns all values
+	 *
+	 * @returns {*}
+	 */
+	, getAll: function () {
 		var store_values = {};
 		for(var key in this.store){
 			store_values[key] = this.get(key);
 		}
+
 		return store_values;
 	}
 };
