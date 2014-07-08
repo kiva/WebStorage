@@ -100,4 +100,6 @@ define(function () {
 			return store_values;
 		}
 	};
+
+	return WebStorage;
 });
