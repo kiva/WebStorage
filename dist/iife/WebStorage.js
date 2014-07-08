@@ -3,7 +3,7 @@
  * Copyright (c) 2014 Kiva Microfunds
  * 
  * Licensed under the MIT license.
- * htt://github.com/kiva/webStorage/license.txt
+ * htt://github.com/kiva/webstorage/license.txt
  */
 (function () {
 	'use strict';

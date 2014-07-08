@@ -1,1 +1,1 @@
-//= ../src/WebStorage.js
+//= ../src/webstorage.js

@@ -1,11 +1,11 @@
 /**
- * WebStorage - v0.1.0 
+ * webstorage - v0.1.0 
  * Copyright (c) 2014 Kiva Microfunds
  * 
  * Licensed under the MIT license.
- * htt://github.com/kiva/webstorage/license.txt
+ * http://github.com/kiva/webstorage/license.txt
  */
-define(function () {
+(function () {
 	'use strict';
 	
 	
@@ -100,4 +100,4 @@ define(function () {
 			return store_values;
 		}
 	};
-});
+}());

@@ -45,8 +45,8 @@ module.exports = function(grunt) {
 					banner: '<%= meta.banner %>'
 				}
 				, files: {
-					'<%= dist %>/iife/WebStorage.js': ['build/_iife.js']
-					, '<%= dist %>/amd/WebStorage.js': ['build/_amd.js']
+					'<%= dist %>/iife/webstorage.js': ['build/_iife.js']
+					, '<%= dist %>/amd/webstorage.js': ['build/_amd.js']
 				}
 			}
 		}
@@ -58,8 +58,8 @@ module.exports = function(grunt) {
 					banner: '<%= meta.banner %>'
 				}
 				, files: {
-					'<%= dist %>/iife/WebStorage.min.js': ['<%= dist %>/iife/WebStorage.js']
-					, '<%= dist %>/amd/WebStorage.min.js': ['<%= dist %>/amd/WebStorage.js']
+					'<%= dist %>/iife/webstorage.min.js': ['<%= dist %>/iife/webstorage.js']
+					, '<%= dist %>/amd/webstorage.min.js': ['<%= dist %>/amd/webstorage.js']
 				}
 			}
 		}
