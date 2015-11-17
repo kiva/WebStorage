@@ -15,7 +15,7 @@
   "devDependencies": {
 	"bower": "~1.3.5",
 	"buster": "~0.7.13",
-	"buster-coverage": "0.1.1",
+	"buster-istanbul": "~0.1.15",
 	"coveralls": "2.10.1",
     "grunt": "~0.4.5",
 	"grunt-buster": "0.3.1",

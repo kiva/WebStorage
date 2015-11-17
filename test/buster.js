@@ -5,4 +5,11 @@ config['Dev tests'] = {
 	, rootPath: '../'
 	, src: ['src/**/*.js']
 	, specs: ['test/spec/**/*.js']
+	, extensions: [
+		require('buster-istanbul')
+	]
+	, 'buster-istanbul': {
+		outputDirectory: 'test/coverage'
+		, format: 'lcov'
+	}
 };
