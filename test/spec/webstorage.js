@@ -15,7 +15,7 @@ describe('WebStorage', function() {
 
 
 	it('sets the default store to "localStorage"', function () {
-		var webStore = new WebStorage('localStorage');
+		var webStore = new WebStorage();
 		expect(webStore.store).toBe(localStorage);
 	});
 
