@@ -1,5 +1,5 @@
 /**
- * webstorage - v0.1.0 
+ * webstorage - v0.1.3 
  * Copyright (c) 2016 Kiva Microfunds
  * 
  * Licensed under the MIT license.
