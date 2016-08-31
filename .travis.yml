@@ -6,4 +6,4 @@ before_install:
   - npm install -g grunt-cli
   - npm install -g bower
 after_script:
-  - coveralls
+  - cat test/coverage/coverage.lcov | ./node_modules/coveralls/bin/coveralls.js
