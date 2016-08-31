@@ -1,6 +1,6 @@
 /**
  * webstorage - v0.1.0 
- * Copyright (c) 2014 Kiva Microfunds
+ * Copyright (c) 2016 Kiva Microfunds
  * 
  * Licensed under the MIT license.
  * http://github.com/kiva/webstorage/license.txt
@@ -47,8 +47,10 @@
 		 */
 		set: function (key, value) {
 			var str_value = JSON.stringify(value);
-			str_value = btoa(str_value); 
-			this.store.setItem(key,str_value);
+			str_value = btoa(str_value);
+			try {
+				this.store.setItem(key, str_value);
+			} catch(e) {}
 		}
 	
 	
@@ -59,12 +61,17 @@
 		 * @returns {*}
 		 */
 		, get: function (key) {
-			var raw_value = this.store.getItem(key);
-			if(raw_value === null){
-				return null;
+			try {
+				var raw_value = this.store.getItem(key);
+				if(raw_value === null){
+					return null;
+				}
+				var enc_value = atob(raw_value);
+				return JSON.parse(enc_value);
 			}
-			var enc_value = atob(raw_value); 
-			return JSON.parse(enc_value);
+			catch(e) {
+				return undefined;
+			}
 		}
 	
 	
@@ -74,7 +81,9 @@
 		 * @param {String} key
 		 */
 		, rm: function (key) {
-			this.store.removeItem(key);
+			try {
+				this.store.removeItem(key);
+			} catch(e) {}
 		}
 	
 	
@@ -82,7 +91,9 @@
 		 * Empties out the store
 		 */
 		, flush: function () {
-			this.store.clear();
+			try {
+				this.store.clear();
+			} catch(e) {}
 		}
 	
 	
