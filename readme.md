@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/kiva/webStorage.svg?branch=master)](https://travis-ci.org/kiva/webStorage)
-[![Coverage Status](https://coveralls.io/repos/kiva/webStorage/badge.png)](https://coveralls.io/r/kiva/webStorage)
+[![Build Status](https://travis-ci.org/kiva/WebStorage.svg?branch=master)](https://travis-ci.org/kiva/WebStorage)
+[![Coverage Status](https://coveralls.io/repos/github/kiva/WebStorage/badge.svg?branch=master)](https://coveralls.io/github/kiva/WebStorage?branch=master)
 
 # webStorage
