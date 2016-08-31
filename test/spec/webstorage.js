@@ -5,6 +5,15 @@ describe('WebStorage', function() {
 	'use strict';
 
 	var expect = buster.expect;
+	var sandbox;
+
+	beforeEach(function() {
+		sandbox = sinon.sandbox.create();
+	});
+
+	afterEach(function() {
+		sandbox.restore();
+	});
 
 
 	it('throws if an invalid store is requested', function () {
@@ -54,6 +63,16 @@ describe('WebStorage', function() {
 			webStore.set('key_4',{some_key:'some_value'});
 			expect(webStore.get('key_4')).toBeObject();
 		});
+
+		it('catches exceptions', function() {
+			sandbox.stub(webStore.store, 'setItem').throws();
+			expect(function() {
+				webStore.store.setItem('key', 'value');
+			}).toThrow();
+			expect(function() {
+				webStore.set('key', 'value');
+			}).not.toThrow();
+		});
 	});
 
 
@@ -69,6 +88,17 @@ describe('WebStorage', function() {
 		it('gets data from the store and de-obfuscates it', function () {
 			localStorage.setItem('test', 'ImplbGx5YmVhbnMi');
 			expect(webStore.get('test')).toBe('jellybeans');
+		});
+
+		it('catches exceptions', function() {
+			sandbox.stub(webStore.store, 'getItem').throws();
+			expect(function() {
+				webStore.store.getItem('key');
+			}).toThrow();
+			expect(function() {
+				webStore.get('key');
+			}).not.toThrow();
+			expect(webStore.get('key')).not.toBeDefined();
 		});
 	});
 
@@ -87,6 +117,16 @@ describe('WebStorage', function() {
 			webStore.rm('key_1');
 			expect(webStore.get('key_1')).toBeNull();
 
+		});
+
+		it('catches exceptions', function() {
+			sandbox.stub(webStore.store, 'removeItem').throws();
+			expect(function() {
+				webStore.store.removeItem('key');
+			}).toThrow();
+			expect(function() {
+				webStore.rm('key');
+			}).not.toThrow();
 		});
 	});	
 
@@ -108,6 +148,16 @@ describe('WebStorage', function() {
 			expect(webStore.get('key_1')).toBeNull();
 			expect(localStorage.length).toBe(0);
 
+		});
+
+		it('catches exceptions', function() {
+			sandbox.stub(webStore.store, 'clear').throws();
+			expect(function() {
+				webStore.store.clear();
+			}).toThrow();
+			expect(function() {
+				webStore.flush();
+			}).not.toThrow();
 		});
 	});
 
