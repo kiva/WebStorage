@@ -1,6 +1,6 @@
 /**
- * webstorage - v0.1.3 
- * Copyright (c) 2016 Kiva Microfunds
+ * webstorage - v0.1.4 
+ * Copyright (c) 2017 Kiva Microfunds
  * 
  * Licensed under the MIT license.
  * http://github.com/kiva/webstorage/license.txt
@@ -11,27 +11,27 @@
 	
 	/**
 	 *
-	 * @param {String} store
+	 * @param {String} [store]
 	 * @constructor
 	 */
 	function WebStorage(store){
-		if (typeof store == 'undefined') {
+		if (typeof store === 'undefined') {
 			store = 'localStorage';
 		}
 	
-		if (store != 'localStorage' && store != 'sessionStorage') {
+		if (store !== 'localStorage' && store !== 'sessionStorage') {
 			throw new Error('Unsupported store given in webStorage');
 		}
 	
-		if (!window.localStorage || !window.sessionStorage) {
+		if (typeof window.localStorage === 'undefined' || typeof window.sessionStorage === 'undefined') {
 			throw new Error('Unsupported Browser');
 		}
 	
-		if (store == 'localStorage') {
+		if (store === 'localStorage') {
 			this.store = window.localStorage;
 		}
 	
-		if (store == 'sessionStorage') {
+		if (store === 'sessionStorage') {
 			this.store = window.sessionStorage;
 		}
 	}
