@@ -1,5 +1,5 @@
 /**
- * webstorage - v0.1.4 
+ * webstorage - v0.1.5 
  * Copyright (c) 2017 Kiva Microfunds
  * 
  * Licensed under the MIT license.
@@ -7,6 +7,26 @@
  */
 (function () {
 	'use strict';
+	
+	/**
+	 * Does the current browser support the given store?
+	 *
+	 * Based on the Modernizr localStorage test:
+	 * https://github.com/Modernizr/Modernizr/blob/cfc3a3fd5457d47d04e5cc50611ac7665c38bea8/feature-detects/storage/localstorage.js
+	 *
+	 * @param store
+	 * @returns {boolean}
+	 */
+	function storageSupported(store) {
+		var t = 'test';
+		try {
+			window[store].setItem(t, t);
+			window[store].removeItem(t);
+			return true;
+		} catch(e) {
+			return false;
+		}
+	}
 	
 	
 	/**
@@ -23,17 +43,7 @@
 			throw new Error('Unsupported store given in webStorage');
 		}
 	
-		if (typeof window.localStorage === 'undefined' || typeof window.sessionStorage === 'undefined') {
-			throw new Error('Unsupported Browser');
-		}
-	
-		if (store === 'localStorage') {
-			this.store = window.localStorage;
-		}
-	
-		if (store === 'sessionStorage') {
-			this.store = window.sessionStorage;
-		}
+		this.store = storageSupported(store) ? window[store] : null;
 	}
 	
 	
@@ -46,11 +56,13 @@
 		 * @param {*} value
 		 */
 		set: function (key, value) {
-			var str_value = JSON.stringify(value);
-			str_value = btoa(str_value);
-			try {
-				this.store.setItem(key, str_value);
-			} catch(e) {}
+			if (this.store) {
+				var str_value = JSON.stringify(value);
+				str_value = btoa(str_value);
+				try {
+					this.store.setItem(key, str_value);
+				} catch(e) {}
+			}
 		}
 	
 	
@@ -61,17 +73,17 @@
 		 * @returns {*}
 		 */
 		, get: function (key) {
-			try {
-				var raw_value = this.store.getItem(key);
-				if(raw_value === null){
-					return null;
-				}
-				var enc_value = atob(raw_value);
-				return JSON.parse(enc_value);
+			if (this.store) {
+				try {
+					var raw_value = this.store.getItem(key);
+					if (raw_value === null) {
+						return null;
+					}
+					var enc_value = atob(raw_value);
+					return JSON.parse(enc_value);
+				} catch (e) {}
 			}
-			catch(e) {
-				return undefined;
-			}
+			return null;
 		}
 	
 	
@@ -81,9 +93,11 @@
 		 * @param {String} key
 		 */
 		, rm: function (key) {
-			try {
-				this.store.removeItem(key);
-			} catch(e) {}
+			if (this.store) {
+				try {
+					this.store.removeItem(key);
+				} catch(e) {}
+			}
 		}
 	
 	
@@ -91,9 +105,11 @@
 		 * Empties out the store
 		 */
 		, flush: function () {
-			try {
-				this.store.clear();
-			} catch(e) {}
+			if (this.store) {
+				try {
+					this.store.clear();
+				} catch(e) {}
+			}
 		}
 	
 	
@@ -103,12 +119,15 @@
 		 * @returns {*}
 		 */
 		, getAll: function () {
-			var store_values = {};
-			for(var key in this.store){
-				store_values[key] = this.get(key);
-			}
+			if (this.store) {
+				var store_values = {};
+				for(var key in this.store){
+					store_values[key] = this.get(key);
+				}
 	
-			return store_values;
+				return store_values;
+			}
+			return null;
 		}
 	};
 }());
