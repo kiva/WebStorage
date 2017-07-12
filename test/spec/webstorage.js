@@ -41,6 +41,13 @@ describe('WebStorage', function() {
 	});
 
 
+	it('only sets the store if storage is supported', function () {
+		sandbox.stub(localStorage, 'setItem').throws();
+		var webStore = new WebStorage();
+		expect(webStore.store).toBeNull();
+	});
+
+
 	describe('.set()', function () {
 		var webStore;
 
@@ -98,7 +105,13 @@ describe('WebStorage', function() {
 			expect(function() {
 				webStore.get('key');
 			}).not.toThrow();
-			expect(webStore.get('key')).not.toBeDefined();
+			expect(webStore.get('key')).toBeNull();
+		});
+
+		it('returns null if storage unavailable', function () {
+			webStore.store = null;
+			webStore.set('key', 'value');
+			expect(webStore.get('key')).toBeNull();
 		});
 	});
 
@@ -127,6 +140,13 @@ describe('WebStorage', function() {
 			expect(function() {
 				webStore.rm('key');
 			}).not.toThrow();
+		});
+
+		it('doesn\'t try if storage unavailable', function () {
+			var spy = sandbox.spy(localStorage, 'removeItem');
+			webStore.store = null;
+			webStore.rm('key');
+			expect(spy).not.toHaveBeenCalled();
 		});
 	});	
 
@@ -159,6 +179,13 @@ describe('WebStorage', function() {
 				webStore.flush();
 			}).not.toThrow();
 		});
+
+		it('doesn\'t try if storage unavailable', function () {
+			var spy = sandbox.spy(localStorage, 'clear');
+			webStore.store = null;
+			webStore.flush();
+			expect(spy).not.toHaveBeenCalled();
+		});
 	});
 
 
@@ -179,5 +206,14 @@ describe('WebStorage', function() {
 			expect(obj.key_2).toBe('value_2');
 
 		});
-	});		
+
+		it('returns null if storage unavailable', function () {
+			webStore.store = null;
+			webStore.set('key_1','value_1');
+			webStore.set('key_2','value_2');
+			var obj = webStore.getAll();
+			expect(obj).toBeNull();
+
+		});
+	});
 });
