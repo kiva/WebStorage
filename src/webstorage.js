@@ -51,8 +51,8 @@ WebStorage.prototype = {
 		if (this.store) {
             try {
                 var str_value = JSON.stringify(value);
-			    str_value = btoa(str_value);
-				this.store.setItem(key, str_value);
+                str_value = btoa(str_value);
+                this.store.setItem(key, str_value);
 			} catch(e) {}
 		}
 	}
