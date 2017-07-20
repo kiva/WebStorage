@@ -1,5 +1,5 @@
 /**
- * webstorage - v0.1.5 
+ * webstorage - v0.1.6 
  * Copyright (c) 2017 Kiva Microfunds
  * 
  * Licensed under the MIT license.
@@ -57,10 +57,10 @@ define(function () {
 		 */
 		set: function (key, value) {
 			if (this.store) {
-				var str_value = JSON.stringify(value);
-				str_value = btoa(str_value);
-				try {
-					this.store.setItem(key, str_value);
+	            try {
+	                var str_value = JSON.stringify(value);
+	                str_value = btoa(str_value);
+	                this.store.setItem(key, str_value);
 				} catch(e) {}
 			}
 		}
